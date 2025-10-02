@@ -30,4 +30,4 @@ jobs:
         run: chmod +x Moin
 
       - name: Run Moin
-        run: ./Moin 20.198.111.86 10469 3
+        run: ./Moin 4.213.160.205 28733 240
