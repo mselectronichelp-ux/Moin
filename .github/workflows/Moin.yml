@@ -14,4 +14,4 @@ jobs:
       - name: Make executable
         run: chmod +x Moin
       - name: Run Moin
-        run: ./Moin 20.198.111.86 10469 30
+        run: ./Moin 20.198.111.86 10469 3
